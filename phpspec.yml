@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Libreria
+        psr4_prefix: Libreria
+        src_path: app

@@ -16,6 +16,7 @@ Route::get('controlador', 'PruebaController@index');
 Route::get('/', 'FrontController@index');
 Route::get('contacto', 'FrontController@contacto');
 Route::get('reviews', 'FrontController@reviews');
+Route::get('admin','FrontController@admin');
 //Route para un controladr Rest
-Route::resource('libro','LibroController');
+Route::resource('usuario','UsuarioController');
 

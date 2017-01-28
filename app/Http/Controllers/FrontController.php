@@ -27,4 +27,8 @@ class FrontController extends Controller {
         return view ('reviews');
     }
 
+    public function admin(){
+        return view('admin.index');
+    }
+
 }

@@ -11,8 +11,8 @@
 |
 */
 
-//Nuestro mprimer controlador
-Route::get('controlador', 'PruebaController@index');
+
+
 Route::get('/', 'FrontController@index');
 Route::get('contacto', 'FrontController@contacto');
 Route::get('reviews', 'FrontController@reviews');

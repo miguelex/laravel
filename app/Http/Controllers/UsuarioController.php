@@ -1,10 +1,14 @@
 <?php namespace Libreria\Http\Controllers;
 
 use Libreria\Http\Requests;
+use Libreria\Http\Requests\UserCreateRequest;
+use Libreria\Http\Requests\UserUpdateRequest;
 use Libreria\Http\Controllers\Controller;
-
+use Libreria\User;
 use Illuminate\Http\Request;
-
+use Session;
+use Redirect;
+use Illuminate\Routing\Route;
 class UsuarioController extends Controller {
 
 	/**
@@ -12,9 +16,18 @@ class UsuarioController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function __construct()
+    {
+        $this->beforeFilter('@find', ['only' => ['edit', 'update', 'destroy']]);
+    }
+
+    public function find(Route $route) {
+	    $this->user = User::find($route->getParameter('usuario'));
+    }
+    public function index()
 	{
-		//
+        $users = User::paginate(5);
+	    return view ('usuario.index', compact('users'));
 	}
 
 	/**
@@ -32,9 +45,11 @@ class UsuarioController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(UserCreateRequest $request)
 	{
-		//
+		User::create($request->all());
+        Session::flash('message', 'Usuario guardado correctamente');
+		return redirect('/usuario');
 	}
 
 	/**
@@ -56,7 +71,7 @@ class UsuarioController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return view('usuario.edit', ['user' => $this->user]);
 	}
 
 	/**
@@ -65,9 +80,13 @@ class UsuarioController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(UserUpdateRequest $request)
 	{
-		//
+        $this->user->fill($request->all());
+        $this->user->save();
+
+        Session::flash('message', 'Usuario actualizado');
+        return redirect::to('/usuario');
 	}
 
 	/**
@@ -76,9 +95,11 @@ class UsuarioController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+        $this->user->delete();
+        Session::flash('message', 'Usuario borrado correctamente');
+        return redirect::to('/usuario');
 	}
 
 }

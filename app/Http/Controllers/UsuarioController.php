@@ -18,16 +18,21 @@ class UsuarioController extends Controller {
 	 */
 	public function __construct()
     {
+        $this->middleware('auth');
+        $this->middleware('admin');
         $this->beforeFilter('@find', ['only' => ['edit', 'update', 'destroy']]);
     }
 
     public function find(Route $route) {
 	    $this->user = User::find($route->getParameter('usuario'));
     }
-    public function index()
+    public function index(Request $request)
 	{
-        $users = User::paginate(5);
-	    return view ('usuario.index', compact('users'));
+        $users = User::paginate(2);
+        if($request->ajax()){
+            return response()->json(view('usuario.users',compact('users'))->render());
+        }
+        return view('usuario.index',compact('users'));
 	}
 
 	/**

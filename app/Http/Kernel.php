@@ -27,6 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' => 'Libreria\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'Libreria\Http\Middleware\RedirectIfAuthenticated',
+        'admin' => 'Libreria\Http\Middleware\Admin',
 	];
 
 }

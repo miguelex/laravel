@@ -19,4 +19,7 @@ Route::get('reviews', 'FrontController@reviews');
 Route::get('admin','FrontController@admin');
 //Route para un controladr Rest
 Route::resource('usuario','UsuarioController');
-
+Route::resource('genero','GeneroController');
+Route::resource('log','LogController');
+Route::get('logout', 'LogController@logout');
+Route::resource('pelicula','MovieController');

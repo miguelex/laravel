@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Libreria\Http\Requests;
 use Libreria\Http\Controllers\Controller;
 use Libreria\Genre;
-use Libreria\Books;
+use Libreria\Movie;
 
 class MovieController extends Controller
 {
@@ -18,7 +18,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::Movies();
+        return view('pelicula.index',compact('movies'));
     }
 
     /**
@@ -40,7 +41,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        Books::create($request->all());
+        Movie::create($request->all());
         return "Listo";
     }
 
